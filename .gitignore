@@ -1,0 +1,9 @@
+Release/
+.vs/
+*.user
+
+# protobuf compiled classes
+appearances.pb.cc
+appearances.pb.h
+shared.pb.cc
+shared.pb.h
