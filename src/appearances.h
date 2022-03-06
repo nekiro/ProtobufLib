@@ -26,15 +26,11 @@
 #include "definitions.h"
 #include "appearances.pb.h"
 
-#include <string>
-#include <iostream>
-#include <sstream>
-#include <fstream>
-#include <array>
-#include <exception>
-
 using TibiaAppearances = tibia::protobuf::appearances::Appearances;
 using TibiaAppearance = tibia::protobuf::appearances::Appearance;
+
+namespace nekiro
+{
 
 enum ObjectType {
 	OBJECT_TYPE_ITEM = 0,
@@ -42,15 +38,6 @@ enum ObjectType {
 	OBJECT_TYPE_EFFECT = 2,
 	OBJECT_TYPE_MISSILE = 3,
 };
-
-#ifdef MAKEDLL
-#define EXPORT __declspec(dllexport)
-#else
-#define EXPORT __declspec(dllimport)
-#endif
-
-namespace nekiro
-{
 
 class EXPORT Appearances {
 	public:
@@ -81,4 +68,4 @@ class EXPORT Appearances {
 
 }
 
-#endif //APPEARANCES_H
+#endif

@@ -20,6 +20,9 @@
 	SOFTWARE.
 */
 
+#ifndef DECLARATIONS_H
+#define DECLARATIONS_H
+
 #ifdef MAKEDLL
 #define EXPORT __declspec(dllexport)
 #else
@@ -41,3 +44,5 @@
 #include <exception>
 #include <format>
 #include <map>
+
+#endif

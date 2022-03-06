@@ -135,4 +135,4 @@ class EXPORT SpriteAppearances {
 
 }
 
-#endif //SPRITEAPPEARANCES_H
+#endif
