@@ -26,7 +26,7 @@
 #include "definitions.h"
 #include "libbmp.h"
 
-namespace nekiro
+namespace nekiro_proto
 {
 
 enum class SpriteLayout

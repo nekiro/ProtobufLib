@@ -29,7 +29,7 @@
 using TibiaAppearances = tibia::protobuf::appearances::Appearances;
 using TibiaAppearance = tibia::protobuf::appearances::Appearance;
 
-namespace nekiro
+namespace nekiro_proto
 {
 
 enum ObjectType {

@@ -23,7 +23,7 @@
 #include "definitions.h"
 #include "appearances.h"
 
-namespace nekiro
+namespace nekiro_proto
 {
 
 void Appearances::parseAppearancesFromFile(const std::string& path)

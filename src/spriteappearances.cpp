@@ -29,7 +29,7 @@
 using json = nlohmann::json;
 namespace fs = std::filesystem;
 
-namespace nekiro
+namespace nekiro_proto
 {
 
 void SpriteAppearances::loadSpriteSheets(const std::string& dir, bool loadData /* true*/)
