@@ -1,6 +1,8 @@
 Release/
 .vs/
 *.user
+vcpkg_installed/
+output/
 
 # protobuf compiled classes
 appearances.pb.cc

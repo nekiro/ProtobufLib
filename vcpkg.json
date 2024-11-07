@@ -1,0 +1,5 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "dependencies": ["protobuf", "nlohmann-json", "liblzma"],
+  "builtin-baseline": "2c401863dd54a640aeb26ed736c55489c079323b"
+}

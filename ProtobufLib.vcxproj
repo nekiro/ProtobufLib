@@ -81,6 +81,9 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PreLinkEventUseInBuild>false</PreLinkEventUseInBuild>
+    <CustomBuildBeforeTargets>GenerateProtobufFiles</CustomBuildBeforeTargets>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <VcpkgTriplet>
@@ -88,6 +91,7 @@
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnabled>true</VcpkgEnabled>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -105,12 +109,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
-    <PreBuildEvent>
-      <Command>cmd /c "$(VcpkgRoot)\installed\$(VcpkgTriplet)\tools\protobuf\protoc --cpp_out=$(ProjectDir)src --proto_path=$(ProjectDir)proto\ appearances.proto shared.proto"</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>generating protobuf classes</Message>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -134,12 +132,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
-    <PreBuildEvent>
-      <Command>cmd /c "$(VcpkgRoot)\installed\$(VcpkgTriplet)\tools\protobuf\protoc --cpp_out=$(ProjectDir)src --proto_path=$(ProjectDir)proto\ appearances.proto shared.proto"</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>generating protobuf classes</Message>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -157,12 +149,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
-    <PreBuildEvent>
-      <Command>cmd /c "$(VcpkgRoot)\installed\$(VcpkgTriplet)\tools\protobuf\protoc --cpp_out=$(ProjectDir)src --proto_path=$(ProjectDir)proto\ appearances.proto shared.proto"</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>generating protobuf classes</Message>
-    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -184,13 +170,18 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableUAC>false</EnableUAC>
     </Link>
-    <PreBuildEvent>
-      <Command>cmd /c "$(VcpkgRoot)\installed\$(VcpkgTriplet)\tools\protobuf\protoc --cpp_out=$(ProjectDir)src --proto_path=$(ProjectDir)proto\ appearances.proto shared.proto"</Command>
-    </PreBuildEvent>
-    <PreBuildEvent>
-      <Message>generating protobuf classes</Message>
-    </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>
+      </Command>
+    </PreLinkEvent>
+    <PreLinkEvent>
+      <Message>
+      </Message>
+    </PreLinkEvent>
   </ItemDefinitionGroup>
+  <Target Name="GenerateProtobufFiles" AfterTargets="VcpkgInstallManifestDependencies">
+    <Exec Command="$(ProjectDir)vcpkg_installed\$(VcpkgTriplet)\$(VcpkgTriplet)\tools\protobuf\protoc --cpp_out=$(ProjectDir)src --proto_path=$(ProjectDir)proto\ appearances.proto shared.proto" />
+  </Target>
   <ItemGroup>
     <ClInclude Include="src\appearances.pb.h" />
     <ClInclude Include="src\appearances.h" />
