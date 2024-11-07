@@ -35,12 +35,16 @@ namespace nekiro_proto
 void SpriteAppearances::loadSpriteSheets(const std::string& dir, bool loadData /* true*/)
 {
     if (!fs::is_directory(dir)) {
-        throw std::exception(std::format("Given directory isn't directory. ({})", dir).c_str());
+        std::stringstream ss;
+		ss << "Given directory isn't directory. (" << dir << ")";
+        throw std::exception(ss.str().c_str());
     }
 
     fs::path catalogPath = fs::path(dir) / fs::path("catalog-content.json");
     if (!fs::exists(catalogPath)) {
-        throw std::exception(std::format("catalog-content.json is not present in given directory. ({})", catalogPath.string()).c_str());
+        std::stringstream ss;
+		ss << "catalog-content.json is not present in given directory. (" << catalogPath.string() << ")";
+        throw std::exception(ss.str().c_str());
     }
 
     std::ifstream file(catalogPath, std::ios::in);
@@ -69,7 +73,7 @@ void SpriteAppearances::loadSpriteSheets(const std::string& dir, bool loadData /
     }
 }
 
-void SpriteAppearances::loadSpriteSheet(SpriteSheetPtr sheet)
+void SpriteAppearances::loadSpriteSheet(const SpriteSheetPtr& sheet)
 {
     if (sheet->loaded) {
         return;
@@ -126,7 +130,9 @@ void SpriteAppearances::loadSpriteSheet(SpriteSheetPtr sheet)
 
     lzma_ret ret = lzma_raw_decoder(&stream, filters);
     if (ret != LZMA_OK) {
-        throw std::exception(std::format("failed to initialize lzma raw decoder result: {}", static_cast<int>(ret)).c_str());
+        std::stringstream ss;
+		ss << "failed to initialize lzma raw decoder result: " << static_cast<int>(ret);
+        throw std::exception(ss.str().c_str());
     }
 
     std::unique_ptr<uint8_t[]> decompressed = std::make_unique<uint8_t[]>(LZMA_UNCOMPRESSED_SIZE); // uncompressed size, bmp file + 122 bytes header
@@ -138,7 +144,9 @@ void SpriteAppearances::loadSpriteSheet(SpriteSheetPtr sheet)
 
     ret = lzma_code(&stream, LZMA_RUN);
     if (ret != LZMA_STREAM_END) {
-        throw std::exception(std::format("failed to decode lzma buffer result: {}", static_cast<int>(ret)).c_str());
+        std::stringstream ss;
+		ss << "failed to decode lzma buffer result: " << static_cast<int>(ret);
+        throw std::exception(ss.str().c_str());
     }
 
     lzma_end(&stream); // free memory

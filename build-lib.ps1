@@ -1,12 +1,12 @@
 # build.ps1
 
+# Set paths
 $SolutionPath = ".\ProtobufLib.sln"
 $OutputDir = ".\output"
 $IncludeDir = "$OutputDir\include"
 $LibDir = "$OutputDir\lib"
 
 # Create output directories
-Remove-Item -Recurse -Force $OutputDir
 New-Item -ItemType Directory -Force -Path $OutputDir
 New-Item -ItemType Directory -Force -Path $IncludeDir
 New-Item -ItemType Directory -Force -Path "$LibDir\x86"
@@ -18,11 +18,6 @@ $Configs = @(
     @{Platform="x64"; Config="Release"}
 )
 
-$HeaderFiles = @(
-    "src\spriteappearances.h",
-    "src\appearances.h"
-)
-
 foreach ($cfg in $Configs) {
     # Build using MSBuild
     & "C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Current\Bin\MSBuild.exe" `
@@ -32,9 +27,8 @@ foreach ($cfg in $Configs) {
         /t:Rebuild `
         /m
 
-	foreach ($file in $HeaderFiles) {
-		Copy-Item $file -Destination $IncludeDir -Force
-	}
+    # Copy headers
+    Copy-Item "src\*.h" -Destination $IncludeDir -Force
     
     # Copy libs based on platform
     if ($cfg.Platform -eq "x86") {

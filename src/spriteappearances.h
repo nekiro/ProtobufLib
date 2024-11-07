@@ -75,7 +75,8 @@ struct EXPORT Sprite {
         SpriteSize size;
 };
 
-class EXPORT SpriteSheet {
+class EXPORT SpriteSheet
+{
     public:
         SpriteSheet(int firstId, int lastId, SpriteLayout spriteLayout, const std::string& path) : firstId(firstId), lastId(lastId), spriteLayout(spriteLayout), path(path) {}
 
@@ -110,22 +111,65 @@ using SpriteSheetPtr = std::shared_ptr<SpriteSheet>;
 using BmpImgPtr = std::shared_ptr<BmpImg>;
 using SpritePtr = std::shared_ptr<Sprite>;
 
-class EXPORT SpriteAppearances {
-	public:
-        // sheets
-		void loadSpriteSheets(const std::string& dir, bool loadData = true);
-        void loadSpriteSheet(SpriteSheetPtr sheet);
+class EXPORT SpriteAppearances
+{
+    public:
+        /**
+         * @brief Loads all sprite sheets from the specified directory.
+         * 
+         * @param dir The directory containing the sprite sheets.
+         * @param loadData If true, loads the data of the sprite sheets.
+         */
+        void loadSpriteSheets(const std::string& dir, bool loadData = true);
+
+        /**
+         * @brief Loads a single sprite sheet.
+         * 
+         * @param sheet The sprite sheet to load.
+         */
+        void loadSpriteSheet(const SpriteSheetPtr& sheet);
+
+        /**
+         * @brief Retrieves the sprite sheet containing the specified sprite ID.
+         * 
+         * @param id The ID of the sprite.
+         * @param load If true, loads the sprite sheet if not already loaded.
+         * @return SpriteSheetPtr The sprite sheet containing the sprite ID.
+         */
         SpriteSheetPtr getSheetBySpriteId(int id, bool load = true);
 
-        // sprites
+        /**
+         * @brief Exports the image of the specified sprite to a file.
+         * 
+         * @param id The ID of the sprite.
+         * @param path The file path to save the sprite image.
+         */
         void exportSpriteImage(int id, const std::string& path);
+
+        /**
+         * @brief Retrieves the sprite with the specified ID.
+         * 
+         * @param id The ID of the sprite.
+         * @return SpritePtr The sprite with the specified ID.
+         */
         SpritePtr getSprite(int id);
 
-        int getSpritesCount() {
+        /**
+         * @brief Gets the total number of sprites.
+         * 
+         * @return int The total number of sprites.
+         */
+        int getSpritesCount() const {
             return spritesCount;
         }
 
-	private:
+    private:
+        /**
+         * @brief Retrieves the image of the specified sprite.
+         * 
+         * @param id The ID of the sprite.
+         * @return BmpImgPtr The image of the specified sprite.
+         */
         BmpImgPtr getSpriteImage(int id);
 
         int spritesCount = 0;
